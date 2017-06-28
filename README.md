@@ -1,6 +1,6 @@
 # discord-music-bot
 A webpage to control my discord music bot remotely
-- See it in action [here](musicbot.longboy.es)
+- See it in action [here](http://musicbot.longboy.es)
 
 ### About
 This is a a single-page Node.js app that uses socket.io to start, stop, and monitor a discord [music bot](https://github.com/Just-Some-Bots/MusicBot) running on the same server.
