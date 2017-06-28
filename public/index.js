@@ -1,5 +1,9 @@
 // start socket
-var socket = io(); // replace this with your server name or IP
+var socket = io();
+
+// assume that we need to show the auth modal until told otherwise
+var requireAuth = true;
+
 
 socket.on('message', function (msg) {
 	document.getElementById('bot-console-output').innerText += msg + '\n';
@@ -24,11 +28,16 @@ socket.on('bot-stopped', function (data) {
 	document.getElementById('bot-console-output').innerText += data.msg + '\n';
 });
 
+socket.on('no-auth', function(data){
+	requireAuth = false;
+});
+
 $("#start-bot-btn").on('click', function () {
-	// socket.emit('start-bot', {
-	// 	password: 'adminPassHere'
-	// });
-	$("#auth-modal").modal('show');
+	if (requireAuth) {
+		$("#auth-modal").modal('show');
+	} else {
+		socket.emit('start-bot');
+	}
 });
 
 
