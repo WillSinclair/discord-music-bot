@@ -10,6 +10,9 @@ module.exports = {
 
 	// change this to true if you're running this from windows
 	'windows': false,
+	
+	// enable this to require password authentication
+	'requireAuth': false,
 
 	// this is an object with mappings of user -> passhash
 	'users': {
