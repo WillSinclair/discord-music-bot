@@ -36,6 +36,9 @@ io.on('connection', (socket) => {
   // get the status of the music bot and send to the client right away
   if (musicBot != null && musicBot.pid != null) {
     socket.send('Bot already running');
+    socket.emit('bot-started', {
+      msg: null
+    });
   }
 
   // let the client know whether to show the auth modal

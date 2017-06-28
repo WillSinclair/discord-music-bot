@@ -20,12 +20,18 @@ socket.on('bot-status', function (data) {
 
 socket.on('bot-started', function (data) {
 	$("#start-bot-btn").hide();
-	document.getElementById('bot-console-output').innerText += data.msg + '\n';
+	if (data.msg) {
+		document.getElementById('bot-console-output').innerText += data.msg + '\n';
+		updateScroll();		
+	}
 });
 
 socket.on('bot-stopped', function (data) {
 	$("#start-bot-btn").show();
-	document.getElementById('bot-console-output').innerText += data.msg + '\n';
+	if (data.msg) {
+		document.getElementById('bot-console-output').innerText += data.msg + '\n';
+		updateScroll();		
+	}
 });
 
 socket.on('no-auth', function(data){
@@ -70,11 +76,3 @@ function updateScroll() {
 		element.scrollTop = element.scrollHeight;
 	}
 }
-
-$("#bot-console-output").on('scroll', function () {
-	var element = document.getElementById("bot-console-output");
-	if (element.scrollTop == element.scrollHeight) {
-		scrolled = false;
-	}
-	scrolled = true;
-});

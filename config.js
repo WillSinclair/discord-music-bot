@@ -6,7 +6,7 @@ CHANGE THE VALUES IN THIS FILE IN ORDER FOR THE APP TO WORK
 
 module.exports = {
 	// store the path to your bot's folder here
-	'botPath': '/home/yourName/musicBotFolder/',
+	'botPath': '/home/will/Music/MusicBot',
 
 	// change this to true if you're running this from windows
 	'windows': false,
