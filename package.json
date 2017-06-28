@@ -1,0 +1,34 @@
+{
+  "name": "discord-music-bot",
+  "version": "0.1.0",
+  "description": "A webpage to control my discord music bot remotely",
+  "main": "server.js",
+  "scripts": {
+    "start": "forever start server.js",
+    "restart": "forever restartall",
+    "stop": "forever stopall",
+    "test": "nodemon server.js --config config/nodemon.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WillSinclair/discord-music-bot.git"
+  },
+  "author": "Will Sinclair",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WillSinclair/discord-music-bot/issues"
+  },
+  "homepage": "https://github.com/WillSinclair/discord-music-bot#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "child_process": "^1.0.2",
+    "express": "^4.15.3",
+    "forever": "^0.15.3",
+    "http": "0.0.0",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

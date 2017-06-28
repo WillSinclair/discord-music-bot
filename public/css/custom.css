@@ -1,0 +1,51 @@
+/* THEME */
+
+@import url('darkly.min.css');
+
+/* CUSTOM STYLING */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.fill-height {
+  height: 100%;
+}
+
+.well {
+  text-align: left;
+  padding: 15px;
+  background-color: #151515;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow-y: scroll;
+  word-wrap: break-word;
+}
+
+.footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  line-height: 50px;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+#auth-message {
+  float: right;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
