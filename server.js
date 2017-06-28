@@ -70,7 +70,11 @@ io.on('connection', (socket) => {
 			} else {
 				spawnMusicBot(socket);
 			}
+		} else {
+			fn(false);
+			console.log('Auth failed for username "' + uname + '" and password "' + pwd + '"');
 		}
+
 	});
 
 	socket.on('disconnect', function () {
