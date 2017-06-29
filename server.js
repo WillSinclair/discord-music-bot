@@ -126,13 +126,7 @@ function spawnMusicBot(socket) {
       socket.send(`${data}`);
     });
     musicBot.stderr.on('data', (data) => {
-      socket.broadcast.send(`${data}`);
-      socket.send(`${data}`);
-    });
-    musicBot.on('close', code => {
-      socket.broadcast.send(`Bot exited with code ${code}`);
-      socket.send(`Bot exited with code ${code}`);
-      botRunning = false;
+      consolelog(`${data}`);
     });
     musicBot.on('exit', code => {
       socket.broadcast.send(`Bot exited with code ${code}`);
