@@ -12,7 +12,7 @@ const config = require('./config');
 const port = process.env.PORT || 8000;
 
 var musicBot = null;
-var pid = null;
+var botRunning = false;
 
 // manually set the publicly accessible directory
 app.use(express.static(__dirname + '/public'));
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
   console.log('Client connected');
 
   // get the status of the music bot and send to the client right away
-  if (musicBot != null && musicBot.pid != null) {
+  if (botRunning) {
     socket.send('Bot already running');
     socket.emit('bot-started', {
       msg: null
@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
         fn(true);        
       }
       // check of the bot is running
-      if (musicBot != null && musicBot.pid != null) {
+      if (botRunning) {
         socket.send('Bot is already running');
       } else {
         spawnMusicBot(socket);
@@ -112,15 +112,15 @@ function spawnMusicBot(socket) {
     if (config.windows) {
       executable = 'run.bat'
     }
-
     musicBot = spawn(executable, {
-      cwd: config.botPath
+      cwd: config.botPath,
+      killSignal: 'SIGTERM'
     }).on('error', function(err) {
       socket.send('Failed to start music bot at ' + config.botPath);
       socket.broadcast.send('Failed to start music bot at ' + config.botPath);
       console.log('Failed to start music bot at ' + config.botPath + ' : ' + err);
     });
-    pid = musicBot.pid;
+    botRunning = true;
     musicBot.stdout.on('data', (data) => {
       socket.broadcast.send(`${data}`);
       socket.send(`${data}`);
@@ -132,6 +132,12 @@ function spawnMusicBot(socket) {
     musicBot.on('close', code => {
       socket.broadcast.send(`Bot exited with code ${code}`);
       socket.send(`Bot exited with code ${code}`);
+      botRunning = false;
+    });
+    musicBot.on('exit', code => {
+      socket.broadcast.send(`Bot exited with code ${code}`);
+      socket.send(`Bot exited with code ${code}`);
+      botRunning = false;      
     });
     socket.broadcast.emit('bot-started', {
       msg: 'Bot started'
