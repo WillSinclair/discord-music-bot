@@ -1,77 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<!-- BOOTSTRAP -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-	<!-- FONT AWESOME -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<!-- custom css -->
-	<link rel="stylesheet" href="css/custom.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- custom css -->
+  <link rel="stylesheet" href="css/custom.css" />
 </head>
 
 <body>
-	<div class="container" style="height:95%">
-		<div class="row align-items-center fill-height text-center">
-			<div class="col">
-				<h1>Music Bot</h1>
-				<button id="start-bot-btn" class="btn btn-outline-success">Start Music Bot</button>
-				<br/>
-				<div class="well" id="bot-console-output">
-				</div>
-			</div>
-		</div>
-	</div>
-	<footer class="footer" style="height:5%;">
-		<div class="container">
-			<h3>
-				<a href="https://github.com/WillSinclair/discord-music-bot">
-					<i class="fa fa-github"></i>
-				</a>
-			</h3>
-		</div>
-	</footer>
+  <div class="container" style="height:95%">
+    <div class="row align-items-center fill-height text-center">
+      <div class="col">
+        <h1>Music Bot</h1>
+        <button id="start-bot-btn" class="btn btn-outline-success">Start Music Bot</button>
+        <br/>
+        <div class="well" id="bot-console-output">
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer" style="height:5%;">
+    <div class="container">
+      <h3>
+        <a href="https://github.com/WillSinclair/discord-music-bot">
+          <i class="fa fa-github"></i>
+        </a>
+      </h3>
+    </div>
+  </footer>
 
-	<!-- password modal -->
-	<div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="start-bot-btn" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<h5 class="modal-title">Please Authenticate</h5>
-					<br/>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <!-- password modal -->
+  <div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="start-bot-btn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5 class="modal-title">Please Authenticate</h5>
+          <br/>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           	<span aria-hidden="true">&times;</span>
         	</button>
-					<div class="col-12">
-						<form class="form-horizontal">
-							<div class="form-group row">
-								<label class="col-3 col-form-label" for="username">Username:</label>
-								<div class="col-9">
-									<input class="form-control" id="username" name="username" type="text" placeholder="Username" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-form-label col-3" for="password">Password:</label>
-								<div class="col-9">
-									<input class="form-control" id="password" name="password" type="password" placeholder="Password" />
-								</div>
-							</div>
-							<input type="button" id="auth-btn" style="float:right" class="btn btn-outline-success" value="Go">
-							<span class="text-muted" id="auth-message"></span>
-					</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
+          <div class="col-12">
+            <form class="form-horizontal">
+              <div class="form-group row">
+                <label class="col-3 col-form-label" for="username">Username:</label>
+                <div class="col-9">
+                  <input class="form-control" id="username" name="username" type="text" placeholder="Username" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-form-label col-3" for="password">Password:</label>
+                <div class="col-9">
+                  <input class="form-control" id="password" name="password" type="password" placeholder="Password" />
+                </div>
+              </div>
+              <input type="button" id="auth-btn" style="float:right" class="btn btn-outline-success" value="Go">
+              <span class="text-muted" id="auth-message"></span>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
-	<!-- SOCKET.IO -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
-	<script src="index.js"></script>
+  <!-- SOCKET.IO -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
