@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const os = require('os');
 const bcrypt = require('bcryptjs');
 const spawn = require('child_process').spawn;
 
@@ -47,7 +46,8 @@ io.on('connection', (socket) => {
   }
 
   socket.on('start-bot', (data, fn) => {
-    var isAuthenticated = false;    
+    var hasCallback = (typeof fn == 'function');
+    var isAuthenticated = false;
     if (config.requireAuth) {
       // try to authenticate
       try {
@@ -71,8 +71,8 @@ io.on('connection', (socket) => {
     // start the bot if authenticated
     if (isAuthenticated) {
       // call the callback function
-      if (config.requireAuth) {
-        fn(true);        
+      if (config.requireAuth && hasCallback) {
+        fn(true);
       }
       // check of the bot is running
       if (botRunning) {
@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
         spawnMusicBot(socket);
       }
     } else {
-      if (config.requireAuth) {
+      if (config.requireAuth && hasCallback) {
         fn(false);
       }
       console.log('Auth failed for username "' + uname + '" and password "' + pwd + '"');
@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
 
   });
 
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function () {
     console.log('Client disconnected');
   })
 });
@@ -107,7 +107,7 @@ http.listen(port, () => {
 
 function spawnMusicBot(socket) {
   try {
-    // set the executable based on the specified OS
+    // set the executable based on the specified 1
     var executable = './run.sh';
     if (config.windows) {
       executable = 'run.bat'
@@ -115,7 +115,7 @@ function spawnMusicBot(socket) {
     musicBot = spawn(executable, {
       cwd: config.botPath,
       killSignal: 'SIGTERM'
-    }).on('error', function(err) {
+    }).on('error', function (err) {
       socket.send('Failed to start music bot at ' + config.botPath);
       socket.broadcast.send('Failed to start music bot at ' + config.botPath);
       console.log('Failed to start music bot at ' + config.botPath + ' : ' + err);
@@ -126,12 +126,12 @@ function spawnMusicBot(socket) {
       socket.send(`${data}`);
     });
     musicBot.stderr.on('data', (data) => {
-      consolelog(`${data}`);
+      console.log(`${data}`);
     });
     musicBot.on('exit', code => {
       socket.broadcast.send(`Bot exited with code ${code}`);
       socket.send(`Bot exited with code ${code}`);
-      botRunning = false;      
+      botRunning = false;
     });
     socket.broadcast.emit('bot-started', {
       msg: 'Bot started'
