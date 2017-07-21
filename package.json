@@ -4,7 +4,7 @@
   "description": "A webpage to control my discord music bot remotely",
   "main": "server.js",
   "scripts": {
-    "start": "forever start -o output.log -e err.log -l forever.log server.js",
+    "start": "forever start -o output.log -e err.log -l -a forever.log server.js",
     "restart": "forever restartall",
     "stop": "forever stopall",
     "test": "nodemon server.js --config config/nodemon.json"
