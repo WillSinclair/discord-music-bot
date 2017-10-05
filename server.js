@@ -128,6 +128,16 @@ function spawnMusicBot(socket) {
     musicBot.stderr.on('data', (data) => {
       console.log(`${data}`);
     });
+    musicBot.on('error', err => {
+      socket.broadcast.send(`Bot process returned an error: ${err}`);
+      socket.send(`Bot process returned an error: ${err}`);
+      botRunning = false;
+    });
+    musicBot.on('uncaughtException', err => {
+      socket.broadcast.send(`Bot process returned an error: ${err}`);
+      socket.send(`Bot process returned an error: ${err}`);
+      botRunning = false;
+    });
     musicBot.on('exit', code => {
       socket.broadcast.send(`Bot exited with code ${code}`);
       socket.send(`Bot exited with code ${code}`);
